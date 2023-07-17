@@ -21,7 +21,7 @@ func TestUnmarshal(t *testing.T) {
 
 	prep := func(t testing.TB, db *surrealtest.SurrealDBTest) {
 		db.Prepare(t, `
-    // Comment can be placed based on SurrealQL syntax.
+	// Comment can be placed based on SurrealQL syntax.
 
 	// Dummy entry for database write testing
 	CREATE x:x SET x = "X";
@@ -35,7 +35,7 @@ func TestUnmarshal(t *testing.T) {
 	// SurrealDB will generate a random ID for this entry.
 	CREATE user:john   SET name = "John";
 	CREATE user:johnny SET name = "Johnny";
-    `)
+	`)
 	}
 
 	cases := map[string]struct {
@@ -86,9 +86,9 @@ func TestUnmarshal(t *testing.T) {
 			interaction: func(db *surrealtest.SurrealDBTest) (interface{}, error) {
 				return db.Query(
 					`
-		             CREATE user:j  SET name = "J";
-		             CREATE user:jo SET name = "Jo";
-		            `, nil)
+					 CREATE user:j  SET name = "J";
+					 CREATE user:jo SET name = "Jo";
+					`, nil)
 			},
 			wantData: []User{
 				{
@@ -105,10 +105,10 @@ func TestUnmarshal(t *testing.T) {
 			interaction: func(db *surrealtest.SurrealDBTest) (interface{}, error) {
 				return db.Query(
 					`
-                     CREATE user:j SET name = "J";
-                     CREATE user:j SET name = "J"; // conflict
-                     CREATE user SET name = "John";
-                    `, nil)
+					 CREATE user:j SET name = "J";
+					 CREATE user:j SET name = "J"; // conflict
+					 CREATE user SET name = "John";
+					`, nil)
 			},
 			wantErrorMsg: "Database record `user:j` already exists",
 		},
@@ -116,11 +116,11 @@ func TestUnmarshal(t *testing.T) {
 			interaction: func(db *surrealtest.SurrealDBTest) (interface{}, error) {
 				return db.Query(
 					`
-                     BEGIN TRANSACTION;
-                     CREATE user:j  SET name = "J";
-                     CREATE user:jo SET name = "Jo";
-                     COMMIT TRANSACTION;
-                    `, nil)
+					 BEGIN TRANSACTION;
+					 CREATE user:j  SET name = "J";
+					 CREATE user:jo SET name = "Jo";
+					 COMMIT TRANSACTION;
+					`, nil)
 			},
 			wantData: []User{
 				{
@@ -137,12 +137,12 @@ func TestUnmarshal(t *testing.T) {
 			interaction: func(db *surrealtest.SurrealDBTest) (interface{}, error) {
 				return db.Query(
 					`
-                     BEGIN TRANSACTION;
-                     CREATE user:j SET name = "J";
-                     CREATE user:j SET name = "J"; // conflict
-                     CREATE user SET name = "John";
-                     COMMIT TRANSACTION;
-                    `, nil)
+					 BEGIN TRANSACTION;
+					 CREATE user:j SET name = "J";
+					 CREATE user:j SET name = "J"; // conflict
+					 CREATE user SET name = "John";
+					 COMMIT TRANSACTION;
+					`, nil)
 			},
 			wantErrorMsg: "Database record `user:j` already exists",
 		},
@@ -150,11 +150,11 @@ func TestUnmarshal(t *testing.T) {
 			interaction: func(db *surrealtest.SurrealDBTest) (interface{}, error) {
 				return db.Query(
 					`
-                     BEGIN TRANSACTION;
-                     CREATE user:j SET name = "J";
-                     CREATE user SET name = "John";
-                     CANCEL TRANSACTION;
-                    `, nil)
+					 BEGIN TRANSACTION;
+					 CREATE user:j SET name = "J";
+					 CREATE user SET name = "John";
+					 CANCEL TRANSACTION;
+					`, nil)
 			},
 			wantErrorMsg: "cancelled transaction",
 		},

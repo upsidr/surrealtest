@@ -24,7 +24,7 @@ func TestSimple(t *testing.T) {
 	// _ = clean
 
 	db.Prepare(t, `
-    // Comment can be placed based on SurrealQL syntax.
+	// Comment can be placed based on SurrealQL syntax.
 
 	// Dummy entry for database write testing.
 	CREATE x:x SET x = "X";
@@ -38,7 +38,7 @@ func TestSimple(t *testing.T) {
 	// SurrealDB will generate a random ID for this entry.
 	CREATE user SET name = "John";
 	CREATE user SET name = "Johnny";
-    `)
+	`)
 
 	type User struct {
 		Username string `json:"username,omitempty"`
