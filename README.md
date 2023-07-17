@@ -30,6 +30,8 @@ func TestMinimalSetup(t *testing.T) {
 	db, clean := surrealtest.NewSurrealDB(t)
 	defer clean()
 
+	// You can prepare the database before going into the main test scenario.
+	// Any error encountered while setting up is handled with t.Errorf().
 	db.Prepare(t, `
 	// Comment can be placed based on SurrealQL syntax.
 
