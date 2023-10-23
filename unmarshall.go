@@ -96,7 +96,7 @@ func handleAsRawQuery(input interface{}) (interface{}, error) {
 	}
 
 	if raw.Status != "OK" {
-		return nil, fmt.Errorf("%s: %s", raw.Status, raw.Detail)
+		return nil, fmt.Errorf("%s: %s", raw.Status, raw.Result)
 	}
 
 	return raw.Result, nil

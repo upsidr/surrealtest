@@ -40,7 +40,7 @@ func NewSurrealDBRaw(t testing.TB) (string, func()) {
 	runOpt := &dockertest.RunOptions{
 		Repository: SurrealDBRepo,
 		Tag:        SurrealDBTag,
-		Cmd:        []string{"start", "-p", "root"},
+		Cmd:        []string{"start", "--auth", "--user", "root", "--pass", "root", "memory"},
 
 		ExposedPorts: []string{targetPort},
 		PortBindings: map[docker.Port][]docker.PortBinding{
