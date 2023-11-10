@@ -17,7 +17,8 @@ func handleInterfaces[I any](input interface{}) ([]I, error) {
 	var errs []error
 	inputs, ok := input.([]interface{})
 	if !ok {
-		fmt.Printf("  data\n    %+v\n", input)
+		// Only used for debugging
+		// fmt.Printf("  data\n    %+v\n", input)
 		return handleInput[I](input)
 	}
 
